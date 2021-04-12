@@ -1,4 +1,4 @@
 export interface IPrice {
   assetId: string,
-  value: number,
+  value: string,
 }

@@ -10,9 +10,11 @@ export class PriceService {
 
   async getPrice(asset: string): Promise<IPrice> {
     const res: CoinDTO = await this.httpService.get(this.buildUrl(asset)).toPromise();
+    const value = res.data?.market_data?.current_price?.usd;
     const price: IPrice = {
       assetId: res.data.id,
-      value: res.data?.market_data?.current_price?.usd,
+      // Converting to string and leave only 1 floating point
+      value: value ? value.toFixed(1) : '',
     }
     return price;
   }

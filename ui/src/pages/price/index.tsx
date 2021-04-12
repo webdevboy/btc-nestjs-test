@@ -17,8 +17,8 @@ function Price() {
     setLoading(true);
     fetch('http://localhost:3001/price?asset=BTC')
     api.getPrice(params).then((res: AxiosResponse): void => {
-      console.log(res)
-      setPrice(res.data);
+      console.log(res);
+      setPrice(parseFloat(res.data.value));
       setLoading(false);
       setError('');
     }).catch((error: AxiosError) => {
