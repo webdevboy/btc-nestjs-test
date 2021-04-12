@@ -21,8 +21,6 @@ describe('PriceController (e2e)', () => {
 
   describe('/price (GET)', () => {
     it('should return success asset', () => {
-      const contextId = ContextIdFactory.create();
-      jest.spyOn(ContextIdFactory, 'getByRequest').mockImplementation(() => contextId);
       return request(app.getHttpServer())
         .get('/price?asset=BTC')
         .expect(HttpStatus.OK)
@@ -35,8 +33,6 @@ describe('PriceController (e2e)', () => {
         });
     });
     it('should return error asset not supported', () => {
-      const contextId = ContextIdFactory.create();
-      jest.spyOn(ContextIdFactory, 'getByRequest').mockImplementation(() => contextId);
       return request(app.getHttpServer())
         .get('/price?asset=UNKNOWN')
         .expect(HttpStatus.BAD_REQUEST)
@@ -46,8 +42,6 @@ describe('PriceController (e2e)', () => {
         });
     });
     it('should return error asset empty error', () => {
-      const contextId = ContextIdFactory.create();
-      jest.spyOn(ContextIdFactory, 'getByRequest').mockImplementation(() => contextId);
       return request(app.getHttpServer())
         .get('/price?asset=')
         .expect(HttpStatus.BAD_REQUEST)
