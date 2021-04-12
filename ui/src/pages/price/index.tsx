@@ -1,31 +1,24 @@
-import React, { ChangeEvent, useState } from 'react';
-import * as api from 'api';
+import React, { ChangeEvent } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { Dispatch } from 'redux';
+
 import { IPriceParams } from 'api/interfaces';
 import convertNumberToUSD from 'utils/convertNumberToUSD';
-import { AxiosError, AxiosResponse } from 'axios';
+import { getError, getLoading, getPriceValue } from 'store/selectors';
+import { getPrice } from 'store/actions';
 
 function Price() {
+  const price = useSelector<PriceState, number>(getPriceValue);
+  const loading = useSelector<PriceState, boolean>(getLoading);
+  const error = useSelector<PriceState, string>(getError);
 
-  const [price, setPrice] = useState<number>(0);
-  const [error, setError] = useState<string>('');
-  const [loading, setLoading] = useState<boolean>(false);
+  const dispatch: Dispatch<any> = useDispatch();
 
   const changeSelectOption = (e: ChangeEvent<HTMLSelectElement>): void => {
     const params: IPriceParams = {
       asset: e.target.value,
     };
-    setLoading(true);
-    api.getPrice(params).then((res: AxiosResponse): void => {
-      setPrice(parseFloat(res.data.value));
-      setLoading(false);
-      setError('');
-    }).catch((error: AxiosError) => {
-      if(error.response) {
-        setError(error.response?.data?.message);
-        setPrice(0);
-        setLoading(false);
-      }
-    });
+    dispatch(getPrice(params));
   }
 
   return (

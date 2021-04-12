@@ -1,14 +1,26 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
-import 'assets/styles/index.scss';
+import { applyMiddleware, createStore, Store } from 'redux';
+import { Provider } from 'react-redux';
+import thunk from 'redux-thunk';
 
+import reportWebVitals from './reportWebVitals';
+
+import App from './App';
+import reducer from 'store/reducer';
+
+import 'assets/styles/index.scss';
 import 'api/interceptors';
+
+const store: Store<PriceState, PriceAction> & {
+  dispatch: DispatchType
+} = createStore(reducer, applyMiddleware(thunk))
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <Provider store={store}>
+      <App />
+    </Provider>
   </React.StrictMode>,
   document.getElementById('root')
 );
