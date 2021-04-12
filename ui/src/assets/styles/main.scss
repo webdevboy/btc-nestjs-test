@@ -1,1 +1,13 @@
 @import 'variables';
+
+button, select {
+  outline: none;
+}
+
+.app {
+  padding: 20px;
+  .app__select {
+    min-width: 70px;
+    margin-bottom: 30px;
+  }
+}
