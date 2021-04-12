@@ -1,4 +1,5 @@
 import { Injectable, HttpService, HttpStatus, HttpException } from '@nestjs/common';
+import { ASSET_NOT_EMPTY, ASSET_NOT_SUPPORTED } from '../config/messages';
 import { CoinDTO } from './interfaces/coin.dto';
 import { IPrice } from './interfaces/price';
 
@@ -22,7 +23,7 @@ export class PriceService {
   private buildUrl(asset: string): string {
     const URL_BASE = 'https://api.coingecko.com/api/v3/coins';
     if(!asset) {
-      throw new HttpException('asset should be either BTC or ETH, not empty', HttpStatus.BAD_REQUEST);
+      throw new HttpException(ASSET_NOT_EMPTY, HttpStatus.BAD_REQUEST);
     }
     switch(asset) {
       case 'BTC': {
@@ -32,7 +33,7 @@ export class PriceService {
         return `${URL_BASE}/ethereum`;
       }
       default: {
-        throw new HttpException('This asset is not supported', HttpStatus.BAD_REQUEST);
+        throw new HttpException(ASSET_NOT_SUPPORTED, HttpStatus.BAD_REQUEST);
       }
     }
   }

@@ -27,5 +27,5 @@ describe('PriceService', () => {
     };
     jest.spyOn(service, 'getPrice').mockImplementation(() => new Promise((resolve, reject) => {resolve(result)}));
     expect(await service.getPrice('BTC')).toEqual(result);
-  })
+  });
 });
