@@ -1,5 +1,6 @@
 import { Injectable, HttpService, HttpStatus, HttpException } from '@nestjs/common';
-import { PriceDTO } from './interfaces/price.dto';
+import { CoinDTO } from './interfaces/coin.dto';
+import { IPrice } from './interfaces/price';
 
 @Injectable()
 export class PriceService {
@@ -7,10 +8,13 @@ export class PriceService {
     private readonly httpService: HttpService,
   ) {}
 
-  async getPrice(asset: string): Promise<number> {
-    const res: PriceDTO = await this.httpService.get(this.buildUrl(asset)).toPromise();
-    const value: number = res.data?.market_data?.current_price?.usd;
-    return value;
+  async getPrice(asset: string): Promise<IPrice> {
+    const res: CoinDTO = await this.httpService.get(this.buildUrl(asset)).toPromise();
+    const price: IPrice = {
+      assetId: res.data.id,
+      value: res.data?.market_data?.current_price?.usd,
+    }
+    return price;
   }
 
   private buildUrl(asset: string): string {
