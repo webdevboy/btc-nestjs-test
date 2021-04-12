@@ -4,6 +4,8 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import 'assets/styles/index.scss';
 
+import 'api/interceptors';
+
 ReactDOM.render(
   <React.StrictMode>
     <App />
