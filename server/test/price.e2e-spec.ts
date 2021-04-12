@@ -25,7 +25,14 @@ describe('PriceController (e2e)', () => {
       jest.spyOn(ContextIdFactory, 'getByRequest').mockImplementation(() => contextId);
       return request(app.getHttpServer())
         .get('/price?asset=BTC')
-        .expect(HttpStatus.OK);
+        .expect(HttpStatus.OK)
+        .expect((res: any) => {
+          // Regex to test for only 1 number after dot
+          const oneNumAfterDecimalRegex = new RegExp(/^-?[0-9]*\.\d$/gm);
+          expect(res.body?.value).toBeTruthy();
+          expect(typeof res.body?.value).toBe('string');
+          expect(oneNumAfterDecimalRegex.test(res.body?.value)).toBe(true);
+        });
     });
     it('should return error asset not supported', () => {
       const contextId = ContextIdFactory.create();
