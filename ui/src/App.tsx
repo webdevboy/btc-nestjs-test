@@ -17,9 +17,10 @@ function App() {
 
   return (
     <div className="app">
-      <select className="app__select" onChange={changeSelectOption}>
-        <option>BTC</option>
-        <option>ETH</option>
+      <select placeholder="ASD" className="app__select" onChange={changeSelectOption}>
+        <option value="" selected disabled hidden>Select asset</option>
+        <option value="BTC">BTC</option>
+        <option value="ETH">ETH</option>
       </select>
       <div className="app__price">123</div>
     </div>
