@@ -14,18 +14,19 @@ export class PriceService {
   }
 
   private buildUrl(asset: string): string {
+    const URL_BASE = 'https://api.coingecko.com/api/v3/coins';
     if(!asset) {
       throw new HttpException('asset should be either BTC or ETH, not empty', HttpStatus.BAD_REQUEST);
     }
     switch(asset) {
       case 'BTC': {
-        return 'https://api.coingecko.com/api/v3/coins/bitcoin';
+        return `${URL_BASE}/bitcoin`;
       }
       case 'ETH': {
-        return 'https://api.coingecko.com/api/v3/coins/ethereum';
+        return `${URL_BASE}/ethereum`;
       }
       default: {
-        throw new HttpException('asset should be either BTC or ETH, not empty', HttpStatus.BAD_REQUEST);
+        throw new HttpException('This asset is not supported', HttpStatus.BAD_REQUEST);
       }
     }
   }
