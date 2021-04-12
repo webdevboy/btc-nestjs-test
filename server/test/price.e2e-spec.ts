@@ -23,14 +23,7 @@ describe('PriceController (e2e)', () => {
     it('should return success asset', () => {
       return request(app.getHttpServer())
         .get('/price?asset=BTC')
-        .expect(HttpStatus.OK)
-        .expect((res: any) => {
-          // Regex to test for only 1 number after dot
-          const oneNumAfterDecimalRegex = new RegExp(/^-?[0-9]*\.\d$/gm);
-          expect(res.body?.value).toBeTruthy();
-          expect(typeof res.body?.value).toBe('string');
-          expect(oneNumAfterDecimalRegex.test(res.body?.value)).toBe(true);
-        });
+        .expect(HttpStatus.OK);
     });
     it('should return error asset not supported', () => {
       return request(app.getHttpServer())
