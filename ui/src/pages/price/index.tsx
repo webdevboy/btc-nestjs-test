@@ -17,7 +17,6 @@ function Price() {
     setLoading(true);
     fetch('http://localhost:3001/price?asset=BTC')
     api.getPrice(params).then((res: AxiosResponse): void => {
-      console.log(res);
       setPrice(parseFloat(res.data.value));
       setLoading(false);
       setError('');
@@ -35,18 +34,16 @@ function Price() {
       <select
         defaultValue=""
         placeholder="ASD"
-        className="app__select"
+        className="price__select"
         onChange={changeSelectOption}
       >
         <option value="" disabled hidden>Select asset</option>
         <option value="BTC">BTC</option>
         <option value="ETH">ETH</option>
-        <option value="SMTH">SMTH</option>
-        <option value="">EMPT</option>
       </select>
-      <div className="app__price">
+      <div>
         {loading && <div>Loading....</div>}
-        {!loading && price !== 0 && <div>{convertNumberToUSD(price)}</div>}
+        {!loading && price !== 0 && <div>Amount: {convertNumberToUSD(price)}</div>}
         {!loading && error && <div>{error}</div>}
       </div>
     </div>
