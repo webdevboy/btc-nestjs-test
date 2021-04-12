@@ -6,11 +6,11 @@ import { PriceService } from './price.service';
 
 describe('PriceController', () => {
   let controller: PriceController;
-  const result: IPrice = {
+  const result: any = {
     assetId: 'BTC',
-    value: '',
+    value: '123.1',
   };
-  let testResult: IPrice;
+  let testResult: any;
   const oneNumAfterDecimalRegex: RegExp = new RegExp(/^-?[0-9]*\.\d$/gm);
 
   beforeEach(async () => {
