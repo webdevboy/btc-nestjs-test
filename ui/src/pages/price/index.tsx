@@ -15,7 +15,6 @@ function Price() {
       asset: e.target.value,
     };
     setLoading(true);
-    fetch('http://localhost:3001/price?asset=BTC')
     api.getPrice(params).then((res: AxiosResponse): void => {
       setPrice(parseFloat(res.data.value));
       setLoading(false);
