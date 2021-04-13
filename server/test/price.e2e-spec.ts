@@ -1,11 +1,9 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { ContextIdFactory } from '@nestjs/core';
 import { HttpStatus, INestApplication } from '@nestjs/common';
 import * as request from 'supertest';
 import { AppModule } from './../src/app.module';
 import { PriceModule } from './../src/price/price.module';
 import { ASSET_NOT_EMPTY, ASSET_NOT_SUPPORTED } from './../src/config/messages';
-import { IPrice } from 'src/price/interfaces/price';
 
 describe('PriceController (e2e)', () => {
   let app: INestApplication;

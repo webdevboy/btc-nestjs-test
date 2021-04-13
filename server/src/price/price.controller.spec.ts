@@ -1,6 +1,5 @@
 import { HttpModule } from '@nestjs/common';
 import { Test, TestingModule } from '@nestjs/testing';
-import { IPrice } from './interfaces/price';
 import { PriceController } from './price.controller';
 import { PriceService } from './price.service';
 
@@ -21,7 +20,7 @@ describe('PriceController', () => {
     }).compile();
 
     controller = module.get<PriceController>(PriceController);
-    jest.spyOn(controller, 'getPrice').mockImplementation(() => new Promise((resolve, reject) => {resolve(result)}));
+    jest.spyOn(controller, 'getPrice').mockImplementation(() => Promise.resolve(result));
     testResult = await controller.getPrice('BTC');
   });
 
